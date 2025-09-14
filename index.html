@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Joke Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background-color: #f9f9f9;
+    }
+    #joke {
+      font-size: 1.2em;
+      margin: 20px auto;
+      width: 60%;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>😂 Random Joke Generator</h1>
+  <p id="joke">Click the button to get a joke!</p>
+  <button onclick="getJoke()">Get Joke</button>
+
+  <script>
+    function getJoke() {
+      fetch('https://official-joke-api.appspot.com/random_joke')
+        .then(response => response.json())
+        .then(data => {
+          const jokeText = `${data.setup} - ${data.punchline}`;
+          document.getElementById('joke').innerText = jokeText;
+        })
+        .catch(error => {
+          document.getElementById('joke').innerText = "Oops! Couldn't fetch a joke.";
+          console.error(error);
+        });
+    }
+  </script>
+
+</body>
+</html>
